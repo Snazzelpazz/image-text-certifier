@@ -1,0 +1,25 @@
+ALLPATH-Text-Certifier/
+├── .github/
+│   └── workflows/              # For future automated testing
+├── app/
+│   ├── src/
+│   │   ├── main/
+│   │   │   ├── java/com/allpath/textcertifier/
+│   │   │   │   ├── MainActivity.kt    # UI & Permission handling
+│   │   │   │   ├── Sanitizer.kt       # THE BRAIN (Deterministic rules)
+│   │   │   │   ├── Certifier.kt       # THE GATE (Authority logic)
+│   │   │   │   └── Pipeline.kt        # Orchestrator (Steps 1-6)
+│   │   │   ├── assets/
+│   │   │   │   └── tessdata/          # Tesseract OCR language files (.traineddata)
+│   │   │   └── res/                   # Android UI layouts/drawables
+│   │   └── test/                      # Unit tests for the Sanitizer logic
+│   ├── build.gradle                   # App-level dependencies (OpenCV, Tesseract)
+│   └── proguard-rules.pro             # Safety for code shrinking
+├── docs/
+│   └── architecture_spec.json         # The JSON you provided (your "blueprint")
+├── .gitignore                         # Ignore build artifacts
+├── build.gradle                       # Project-level build script
+├── settings.gradle                    # Project settings
+├── LICENSE                            # Your IP protection (e.g., Apache 2.0)
+├── README.md                          # Project Overview & "Big Dawg" context
+└── BUILD.md                           # Checklist for computer-based compilation
