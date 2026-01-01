@@ -1,0 +1,80 @@
+package com.allpath.textcertifier
+
+import android.graphics.Bitmap
+
+/**
+ * Universal Image Text Certification Pipeline
+ * Enforces deterministic "Refusal over Invention"
+ */
+class Pipeline(
+    private val ocrEngine: OcrProvider, 
+    private val sanitizer: Sanitizer,
+    private val renderer: DeterministicRenderer
+) {
+
+    data class CertificationReport(
+        val boxesProcessed: Int,
+        val fixesApplied: Int,
+        val boxesRefused: Int,
+        val gatePassed: Boolean,
+        val logs: List<String>
+    )
+
+    fun processImage(inputBitmap: Bitmap): Pair<Bitmap, CertificationReport> {
+        val logs = mutableListOf<String>()
+        
+        // STEP 1: OCR Detection
+        val regions = ocrEngine.detectAllText(inputBitmap)
+        if (regions.isEmpty()) {
+            return inputBitmap to CertificationReport(0, 0, 0, true, listOf("No text detected."))
+        }
+
+        // STEP 2 & 3: Sanitize and Erase
+        var processedBitmap = inputBitmap
+        var fixesCount = 0
+        var refusalCount = 0
+        
+        val validFixes = regions.mapNotNull { region ->
+            val sanitizedText = sanitizer.sanitize(region.text)
+            
+            // Core Law: If confidence is low or sanitizer is unsure, REFUSE
+            if (region.confidence < 0.85f || sanitizedText == null) {
+                refusalCount++
+                null 
+            } else {
+                fixesCount++
+                region.copy(text = sanitizedText)
+            }
+        }
+
+        // STEP 4: Deterministic Overlay
+        processedBitmap = renderer.eraseAndOverlay(inputBitmap, validFixes)
+
+        // STEP 5: Post-Render Gate (The Authority Check)
+        val finalOcrCheck = ocrEngine.detectAllText(processedBitmap)
+        val isConsistent = verifyGate(validFixes, finalOcrCheck)
+
+        val report = CertificationReport(
+            boxesProcessed = regions.size,
+            fixesApplied = fixesCount,
+            boxesRefused = refusalCount,
+            gatePassed = isConsistent,
+            logs = logs
+        )
+
+        // If gate fails, we return the ORIGINAL image (Refusal Policy)
+        return if (isConsistent) {
+            processedBitmap to report
+        } else {
+            inputBitmap to report.copy(logs = listOf("GATE_FAILURE: Rendering introduced noise or typos."))
+        }
+    }
+
+    private fun verifyGate(expected: List<TextRegion>, actual: List<TextRegion>): Boolean {
+        if (expected.size != actual.size) return false
+        // Deterministic check: Every rendered box must match the sanitized string exactly
+        return expected.zip(actual).all { (exp, act) -> 
+            exp.text == act.text 
+        }
+    }
+}
