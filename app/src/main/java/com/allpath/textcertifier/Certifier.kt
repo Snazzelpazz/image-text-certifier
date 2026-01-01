@@ -30,3 +30,30 @@ class Certifier {
         return text.length
     }
 }
+package com.allpath.textcertifier
+
+import android.graphics.Bitmap
+
+/**
+ * ALLPATH Certifier (Authority Gate)
+ * Enforces LAW 11.2: Only canon (verified objects) creates continuity.
+ */
+class Certifier(private val ocrEngine: OcrProvider) {
+
+    /**
+     * Verifies that the rendered result matches the sanitized intent.
+     * Prevents "Synthetic Secondness" by ensuring object grounding.
+     */
+    fun verify(plannedFixes: List<TextRegion>, resultBitmap: Bitmap): Boolean {
+        // Perform fresh OCR pass on the candidate image
+        val finalAudit = ocrEngine.detectAllText(resultBitmap)
+
+        // Deterministic Anchor Check: Box count must remain invariant
+        if (plannedFixes.size != finalAudit.size) return false
+
+        // Character-Level Alignment: Verification of symbolic stability
+        return plannedFixes.zip(finalAudit).all { (planned, actual) ->
+            planned.text == actual.text && actual.confidence > 0.90f
+        }
+    }
+}
