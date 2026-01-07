@@ -1,26 +1,166 @@
-# Image Text Certifier
 
-An offline-first Android app that fixes typos and garbled text in images.
+AI Output Consultation
 
-## Goal
-Input: Any image containing readable text  
-Output: The same image with corrected text and no typos
+Clarity. Integrity. Human Trust.
 
-## Core Rules
-- Works on any image where text is visually readable
-- Uses OCR to detect text regions automatically
-- Fixes text deterministically (no AI guessing)
-- AI is never allowed after final rendering
-- Post-render spellcheck gate enforces correctness
-- If text cannot be recovered, the system refuses to guess
+AI systems are producing text, images, and interfaces that look correct — but quietly distort meaning.
 
-## Pipeline
-1. OCR detects text regions
-2. Text is sanitized using deterministic rules
-3. Original text regions are erased
-4. Corrected text is re-rendered
-5. Image is re-checked to guarantee zero typos
+I help identify when AI output:
 
-## Status
-Project scaffold created.  
-Core logic and Android implementation in progress.
+introduces subtle errors
+
+misrepresents numbers or facts
+
+garbles text in images
+
+creates false confidence
+
+or breaks trust without obvious failure
+
+
+This is not prompt tuning.
+This is output judgment.
+
+
+---
+
+What I Do
+
+I provide human-in-the-loop evaluation for AI-generated output, including:
+
+🔍 Output Review
+
+Text (documents, captions, instructions)
+
+Images containing text (posters, comics, dashboards, slides)
+
+AI-assisted interfaces or reports
+
+
+🧭 Failure Diagnosis
+
+Semantic drift (“almost right” but wrong)
+
+Number and formatting errors
+
+OCR / image-text corruption
+
+Misleading clarity or tone
+
+Context loss across AI steps
+
+
+📜 Written Assessment (Optional)
+
+What’s broken
+
+Why it matters
+
+Who could be misled
+
+What to change (or whether to discard)
+
+
+
+---
+
+What This Is Not
+
+❌ Not model fine-tuning
+
+❌ Not automation consulting
+
+❌ Not branding or copywriting
+
+❌ Not “AI hype optimization”
+
+
+This is trust repair.
+
+
+---
+
+When You Should Reach Out
+
+You should request a consultation if:
+
+The output will be seen by others
+
+The stakes are non-trivial (money, safety, reputation, policy, education)
+
+Something “feels off” but you can’t pinpoint it
+
+You don’t want to explain an AI mistake after the fact
+
+
+If it’s harmless, I’ll tell you.
+If it’s risky, I’ll explain why.
+
+
+---
+
+How It Works
+
+1. Send the Output
+
+Image, text, or link
+
+
+
+2. Context Matters
+
+What was it for?
+
+Who is expected to trust it?
+
+
+
+3. I Review
+
+Human judgment, not automation
+
+
+
+4. You Get a Clear Answer
+
+Safe / Unsafe / Misleading / Needs Revision
+
+
+
+
+
+---
+
+Pricing
+
+Initial triage: Free (brief, honest signal)
+
+Written assessment: Case-by-case
+
+Ongoing review / advisory: Available
+
+
+If you’re not sure what you need, that’s fine.
+That’s the point of consultation.
+
+
+---
+
+Contact
+
+📩 Send your AI output here:
+[ snazzelpazz@gmail.com]
+
+If you’re unsure whether it’s worth reviewing, send it anyway.
+
+
+---
+
+AI doesn’t fail loudly.
+It fails convincingly.
+
+That’s what I’m here to catch.
+
+
+---
+
